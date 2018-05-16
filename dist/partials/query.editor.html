@@ -1,0 +1,62 @@
+<query-editor-row query-ctrl="ctrl" class="cicada-datasource-query-row">
+	<div class="gf-form-inline">
+		<div class="gf-form-select-wrapper max-width-8">
+			<select class="gf-form-input" 
+				ng-init = "single"	
+				ng-model="ctrl.target.type" 
+				ng-blur = "ctrl.panelCtrl.refresh()">
+				<option title = "One single metric">single</option>
+				<option title = "Metric group by tags">group</option>
+			</select>
+		</div>
+
+		<div class="gf-form max-width-12" ng-if="ctrl.target.type == 'single'">
+			<gf-form-dropdown 
+				model="ctrl.target.device_id"
+				class = "max-width-12"
+				lookup-text="true"
+				custom = "false"
+				get-options="ctrl.getDeviceList()"
+				on-change="ctrl.onDeviceChange()">
+			</gf-form-dropdown>
+		</div>
+
+		<div class="gf-form max-width-12" ng-if="ctrl.target.type == 'single'">
+			<div class = "max-width-12">
+			<gf-form-dropdown 
+				model="ctrl.target.varbind_id"
+				class = "max-width-12"
+				lookup-text="true"
+				custom = "false"
+				get-options="ctrl.getVarbindList()"
+				on-change="ctrl.panelCtrl.refresh()">
+			</gf-form-dropdown>
+			</div>
+		</div>
+
+		<div class="gf-form max-width-12" ng-if="ctrl.target.type == 'group'">
+			<gf-form-dropdown 
+				class = "max-width-12"
+				model="ctrl.target.device_tag"
+				allow-custom="false"
+				lookup-text="false"
+				get-options="ctrl.getDeviceTags()"
+				on-change="ctrl.onDeviceTagChange()">
+			</gf-form-dropdown>
+		</div>
+
+
+		<div class="gf-form max-width-12" ng-if="ctrl.target.type == 'group'">
+			<gf-form-dropdown 
+				class = "max-width-12"
+				model="ctrl.target.varbind_tag"
+				get-options="ctrl.getVarbindTags()"
+				on-change = "ctrl.panelCtrl.refresh()">
+			</gf-form-dropdown>
+		</div>
+
+		<div class="gf-form gf-form--grow">
+			<div class="gf-form-label gf-form-label--grow"></div>
+		</div>
+	</div>
+</query-editor-row>
